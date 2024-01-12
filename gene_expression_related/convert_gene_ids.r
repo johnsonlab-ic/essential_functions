@@ -1,5 +1,7 @@
 library(org.Hs.eg.db)
 
+message("I'm testing a git change...")
+
 convert_geneids=function(genelist,
   format=c("entrezID","ENSEMBL","SYMBOL"),
   conversion=c("ENSEMBL","EntrezID","SYMBOL")){
