@@ -47,7 +47,7 @@ source("path/to/genotype_functions/get_SNP_position.R")
 
 # Example usage
 genelist <- c("BRCA1", "TP53")
-converted_genes <- convert_geneids(genelist, format="SYMBOL", conversion="ENSEMBL")
+converted_genes <- convert_geneids(genelist, from="SYMBOL", to="ENSEMBL")
 
 snp_vector <- c("rs123", "rs456")
 snp_positions <- get_SNP_position(snp_vector, build="hg19")
