@@ -53,10 +53,6 @@ snp_vector <- c("rs123", "rs456")
 snp_positions <- get_SNP_position(snp_vector, build="hg19")
 ```
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.

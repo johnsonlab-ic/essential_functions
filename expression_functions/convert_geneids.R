@@ -1,8 +1,8 @@
 convert_geneids=function(genelist,
-  format=c("entrezID","ENSEMBL","SYMBOL"),
-  conversion=c("ENSEMBL","EntrezID","SYMBOL")){
+  from=c("entrezID","ENSEMBL","SYMBOL"),
+  to=c("ENSEMBL","EntrezID","SYMBOL")){
 
-  suppressMessages(symbols <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, keys = genelist, keytype = format, column=conversion))
+  suppressMessages(symbols <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, keys = genelist, keytype = from, column=to))
 
   symbols<-as.data.frame(symbols)
   symbols$pre_conversion<-rownames(symbols)
