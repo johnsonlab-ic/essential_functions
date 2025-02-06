@@ -39,7 +39,7 @@ BiocManager::install(c("org.Hs.eg.db", "TxDb.Hsapiens.UCSC.hg19.knownGene", "TxD
 
 ## Usage
 
-You can source the individual function scripts in your R environment and call the functions as needed. For example:
+You can source the individual function scripts in your R environment and call the functions as needed, make sure you clone it first. For example:
 
 ```r
 source("path/to/expression_functions/convert_geneids.R")
