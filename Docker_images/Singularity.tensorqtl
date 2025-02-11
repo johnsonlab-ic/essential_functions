@@ -1,0 +1,23 @@
+Bootstrap: docker
+From: python:3.11
+
+%post
+    apt-get update && apt-get install -y \
+        build-essential \
+        libssl-dev \
+        libffi-dev \
+        python3-dev \
+        git \
+        zlib1g-dev \
+        libbz2-dev \
+        liblzma-dev \
+        && rm -rf /var/lib/apt/lists/*
+    pip3 install cython
+    pip3 install tensorqtl
+
+%environment
+    export LC_ALL=C
+    export LANG=C
+
+%runscript
+    exec "$@"
