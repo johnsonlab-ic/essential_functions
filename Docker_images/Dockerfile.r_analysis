@@ -22,8 +22,8 @@ RUN /opt/venv/bin/pip install jupyterlab
 RUN R -e "install.packages(c('tidyverse', 'ggplot2'), repos='http://cran.rstudio.com/')"
 
 # Install IRKernel and set up JupyterLab kernel
-RUN R -e "install.packages('IRkernel', repos='http://cran.rstudio.com/')"
-RUN R -e "IRkernel::installspec(user = FALSE)"
+RUN /bin/bash -c "source /opt/venv/bin/activate && R -e \"install.packages('IRkernel', repos='http://cran.rstudio.com/')\""
+RUN /bin/bash -c "source /opt/venv/bin/activate && R -e \"IRkernel::installspec(user = FALSE)\""
 
 # Set up JupyterLab to mount the user's home directory
 VOLUME /home
