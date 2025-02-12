@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y \
 RUN pip3 install jupyterlab --break-system-packages
 
 # Install R packages
-RUN R -e "install.packages('tidyverse')"
 RUN R -e "install.packages('ggplot2')"
 RUN R -e "install.packages('dplyr')"
 RUN R -e "install.packages('readr')"
@@ -40,4 +39,4 @@ VOLUME /home/ah3918
 EXPOSE 8888
 
 # Start JupyterLab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
