@@ -9,13 +9,19 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libxml2-dev \
     python3-pip \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
+
+# Create a virtual environment for Python packages
+RUN python3 -m venv /opt/venv
+
+# Activate the virtual environment and install JupyterLab
+RUN /opt/venv/bin/pip install jupyterlab
 
 # Install R packages
 RUN R -e "install.packages(c('tidyverse', 'ggplot2'), repos='http://cran.rstudio.com/')"
 
-# Install JupyterLab and IRKernel
-RUN pip3 install jupyterlab
+# Install IRKernel and set up JupyterLab kernel
 RUN R -e "install.packages('IRkernel', repos='http://cran.rstudio.com/')"
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
@@ -25,5 +31,5 @@ VOLUME /home
 # Expose JupyterLab port
 EXPOSE 8888
 
-# Start JupyterLab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+# Start JupyterLab using the virtual environment
+CMD ["/opt/venv/bin/jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
