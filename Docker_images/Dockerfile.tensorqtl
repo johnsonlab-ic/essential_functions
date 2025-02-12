@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.12
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,8 +13,10 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libbz2-dev \
     liblzma-dev \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
 # Install TensorQTL dependencies
 RUN pip3 install cython
+RUN pip3 install pgenlib
 RUN pip3 install tensorqtl
