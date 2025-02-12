@@ -26,7 +26,7 @@ RUN /bin/bash -c "source /opt/venv/bin/activate && R -e \"install.packages('IRke
 RUN /bin/bash -c "source /opt/venv/bin/activate && R -e \"IRkernel::installspec(user = FALSE)\""
 
 # Set up JupyterLab to mount the user's home directory
-VOLUME /home/ah3918/rds 
+VOLUME /home/ah3918/
 
 # Expose JupyterLab port
 EXPOSE 8888
