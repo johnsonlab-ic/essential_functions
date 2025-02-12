@@ -9,13 +9,25 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libxml2-dev \
     python3-pip \
+    libfreetype6-dev \
+    libpng-dev \
+    libtiff5-dev \
+    libjpeg-dev \
     && rm -rf /var/lib/apt/lists/*
-
 # Install JupyterLab
 RUN pip3 install jupyterlab --break-system-packages
 
 # Install R packages
-RUN R -e "install.packages(c('tidyverse', 'ggplot2'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('tidyverse')"
+RUN R -e "install.packages('ggplot2')"
+RUN R -e "install.packages('dplyr')"
+RUN R -e "install.packages('readr')"
+RUN R -e "install.packages('data.table')"
+RUN R -e "install.packages('ggrepel')"
+
+#now bioconductor
+RUN R -e "install.packages('BiocManager')"
+
 
 # Install IRKernel and set up JupyterLab kernel
 RUN R -e "install.packages('IRkernel', repos='http://cran.rstudio.com/')"
