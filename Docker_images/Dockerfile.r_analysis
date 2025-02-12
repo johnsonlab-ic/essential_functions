@@ -1,4 +1,4 @@
-FROM rocker/r-ver:latest
+FROM r-base
 
 # Set the working directory in the container
 WORKDIR /app
