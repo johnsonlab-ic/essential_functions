@@ -21,6 +21,8 @@ docker login
 
 Next, we're going to clone the essential functions repository.
 
+### Setting up 
+
 ```         
 git clone https://github.com/johnsonlab-ic/essential_functions/
 cd essential_functions
@@ -42,10 +44,40 @@ Where;
 
 You have now build a Docker "image", which is a lightweight, standalone executable package that contains everything you've loaded the instructions with.
 
+## Running the containers
+
 To make use of this Docker image, you need to run a Docker **container**. A **container** is a runtime "instance" of a docker image - which again, uses the image and loads all necessary packages. The "instance" is an important distinction; because you can run multiple containers from the same image. The important part of a container is that it is **isolated from the host system**, meaning you can do whatever you want within them without fear of breaking anything. It also means that it's lightweight and **completely** **configurable**. Now, you can run your image!
 
-```         
+``` shell
 docker run -it --name tutorial_container my_tutorial_image:latest
 ```
 
-In this case, it will go straight to R
+This will open up an interactive session. You are now "inside" the container. Anything done here will remain in the container. To exit the container, you can use "`exit`" . This "stops" the container, and you would have to re-start it and re-attach it.
+
+`docker ps` will show active containers
+
+`docker ps -a` will show active and stopped containers
+
+## 
+
+### Mounting the file system
+
+One of the "drawbacks" of a container is that it is in fact, completely isolated to everything; it is it's own system, with its own packages, filesystem, config files etc. It doesn't know about anything "outside" of it. Unless, you specifically mount directories in it.
+
+First, we'll create a directory in your home directory, and add some textfiles. Make sure you are no longer inside the container!
+
+``` shell
+mkdir -p tutorial_dir
+echo "This is file 1" > tutorial_dir/file1.txt
+echo "This is file 2" > tutorial_dir/file2.txt
+```
+
+Then, we'll restart the container. For security reasons, docker does not allow you to mount a folder on an already "created" container. So we'll remove/delete the old container and start again.
+
+``` shell
+docker stop tutorial_container
+docker rm tutorial_container
+docker run -it --name tutorial_container -v $(pwd)/tutorial_dir:/app/tutorial_dir my_tutorial_image:latest
+```
+
+#
