@@ -92,11 +92,17 @@ To run this you need to.
 1.  Build the image
 
 ```         
-docker build -t jupyter_tutorial:latest -f essential_functions/Docker_images/Dockerfile.tutorial_jupyter .
+cd ${home}
+cd essential_functions/
+git pull
+docker build -t jupyter_tutorial:latest -f Docker_images/Dockerfile.tutorial_jupyter .
 ```
 
 2.  Run the container
 
 ```         
-docker run -p 8888:8888 -v /path/to/your/local/directory:/home/ah3918 --name jupyter_tutorial_container jupyter_tutorial:latest
+cd $home
+docker run -p 8888:8888 -v ./tutorial_dir:/app/tutorial_dir --name jupyter_tutorial_container jupyter_tutorial:latest
 ```
+
+3.  This will run a jupyter server. You can connect with the provided link.

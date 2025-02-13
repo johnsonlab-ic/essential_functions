@@ -39,4 +39,4 @@ VOLUME /home/ah3918
 EXPOSE 8888
 
 # Start JupyterLab
-CMD ["sh", "-c", "jupyter lab --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.disable_check_xsrf=True > /dev/null 2>&1 & echo 'JupyterLab is running. Access it at http://localhost:8888'"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
