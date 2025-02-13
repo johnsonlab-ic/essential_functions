@@ -18,3 +18,5 @@ RUN apt-get update && apt-get install -y \
 # Install R packages
 RUN R -e "install.packages('ggplot2')"
 RUN R -e "install.packages('dplyr')"
+
+CMD ["bash"]
