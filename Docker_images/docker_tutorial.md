@@ -105,4 +105,4 @@ cd $home
 docker run -p 8888:8888 -v ./tutorial_dir:/app/tutorial_dir --name jupyter_tutorial_container jupyter_tutorial:latest
 ```
 
-3.  This will run a jupyter server. You can connect with the provided link.
+3.  This will run a jupyter server. You can connect with the provided link. But first, in your local directory, you need to run an "ssh tunnel", which allows you to connect to it.,

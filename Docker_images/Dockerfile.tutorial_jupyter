@@ -32,11 +32,5 @@ RUN R -e "install.packages('BiocManager')"
 RUN R -e "install.packages('IRkernel', repos='http://cran.rstudio.com/')"
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
-# Set up JupyterLab to mount the user's home directory
-VOLUME /home/ah3918
-
-# Expose JupyterLab port
-EXPOSE 8888
-
 # Start JupyterLab
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
