@@ -14,29 +14,7 @@ RUN apt-get update && apt-get install -y \
     libtiff5-dev \
     libjpeg-dev \
     && rm -rf /var/lib/apt/lists/*
-# Install JupyterLab
-RUN pip3 install jupyterlab --break-system-packages
 
 # Install R packages
 RUN R -e "install.packages('ggplot2')"
 RUN R -e "install.packages('dplyr')"
-RUN R -e "install.packages('readr')"
-RUN R -e "install.packages('data.table')"
-RUN R -e "install.packages('ggrepel')"
-
-#now bioconductor
-RUN R -e "install.packages('BiocManager')"
-
-
-# Install IRKernel and set up JupyterLab kernel
-RUN R -e "install.packages('IRkernel', repos='http://cran.rstudio.com/')"
-RUN R -e "IRkernel::installspec(user = FALSE)"
-
-# Set up JupyterLab to mount the user's home directory
-VOLUME /home/ah3918
-
-# Expose JupyterLab port
-EXPOSE 8888
-
-# Start JupyterLab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
