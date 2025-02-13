@@ -21,7 +21,7 @@ docker login
 
 Next, we're going to clone the essential functions repository.
 
-### Setting up 
+### Setting up
 
 ```         
 git clone https://github.com/johnsonlab-ic/essential_functions/
@@ -67,6 +67,7 @@ One of the "drawbacks" of a container is that it is in fact, completely isolated
 First, we'll create a directory in your home directory, and add some textfiles. Make sure you are no longer inside the container!
 
 ``` shell
+cd $home
 mkdir -p tutorial_dir
 echo "This is file 1" > tutorial_dir/file1.txt
 echo "This is file 2" > tutorial_dir/file2.txt
@@ -80,4 +81,22 @@ docker rm tutorial_container
 docker run -it --name tutorial_container -v $(pwd)/tutorial_dir:/app/tutorial_dir my_tutorial_image:latest
 ```
 
-#
+# 
+
+### Bonus - Jupyter server within a docker container
+
+You can even create a jupyter server within a docker container that you can connect to externally! I have created a file called Dockerfile.tutorial_jupyter which contains some instructions to set this up.
+
+To run this you need to.
+
+1.  Build the image
+
+```         
+docker build -t jupyter_tutorial:latest -f essential_functions/Docker_images/Dockerfile.tutorial_jupyter .
+```
+
+2.  Run the container
+
+```         
+docker run -p 8888:8888 -v /path/to/your/local/directory:/home/ah3918 --name jupyter_tutorial_container jupyter_tutorial:latest
+```
