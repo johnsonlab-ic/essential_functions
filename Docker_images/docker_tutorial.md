@@ -58,7 +58,12 @@ This will open up an interactive session. You are now "inside" the container. An
 
 `docker ps -a` will show active and stopped containers
 
-## 
+```         
+docker start -i alex_container
+```
+
+```         
+```
 
 ### Mounting the file system
 
@@ -76,12 +81,15 @@ echo "This is file 2" > tutorial_dir/file2.txt
 Then, we'll restart the container. For security reasons, docker does not allow you to mount a folder on an already "created" container. So we'll remove/delete the old container and start again.
 
 ``` shell
-docker stop tutorial_container
-docker rm tutorial_container
-docker run -it --name tutorial_container -v $(pwd)/tutorial_dir:/app/tutorial_dir my_tutorial_image:latest
+docker stop alex_container
+docker rm alex_container
+docker run -it --name alex_container -v $(pwd)/tutorial_dir:/app/tutorial_dir my_tutorial_image:latest
 ```
 
-# 
+```         
+cd ../
+echo "This is file 3" > tutorial_dir/file3.txt
+```
 
 ### Bonus - Jupyter server within a docker container
 
@@ -100,9 +108,45 @@ docker build -t jupyter_tutorial:latest -f Docker_images/Dockerfile.tutorial_jup
 
 2.  Run the container
 
+make sure you configure your container port (the port you will define inside the container) and your host port (this is the DSI port). I will name mine
+
+host_port=1234
+
+container_port=1000
+
 ```         
 cd $home
-docker run -p 8888:8888 -v ./tutorial_dir:/app/tutorial_dir --name jupyter_tutorial_container jupyter_tutorial:latest
+docker run -it -p 1234:1000 -v $(pwd)/tutorial_dir:/app/tutorial_dir --name jupyter_alex jupyter_tutorial:latest
 ```
 
-3.  This will run a jupyter server. You can connect with the provided link. But first, in your local directory, you need to run an "ssh tunnel", which allows you to connect to it.,
+3.  Then, inside the container, run this line;
+
+```         
+jupyter lab --ip=0.0.0.0 --port=<container_port> --no-browser --allow-root
+```
+
+Where `<container_port>` is the previously defined port, in my case 1000.
+
+```         
+jupyter lab --ip=0.0.0.0 --port=1000 --no-browser --allow-root
+```
+
+5.  In your **local machine (NOT DSI)**, you need to create an SSH tunnel to connect to it.
+
+```         
+ssh -f -N -L <local_port>:localhost:<host_port> ubuntu@landmark-t-01.dsi.ic.ac.uk
+```
+
+To keep things simple, I will name `<local_port>` = 1234 (note, this could just as easily be 1400 or any other 4 digit number). \<host_port\> is already 1234, as defined earlier.
+
+```         
+ssh -f -N -L 1234:localhost:1234 ubuntu@landmark-t-01.dsi.ic.ac.uk
+```
+
+Then, if you go into a browser, you can just go to <http://localhost:1234> or whatever you named the port. It will ask for a token; inside your jupyter server, there should be a token mentioned there which you can copy paste.
+
+![](images/paste-1.png)
+
+You can even do this within VScode!
+
+Open up a new notebook (for example, tutorial.ipynb), select kernel \> existing jupyter server \> enter "<http://localhost:1234> " \> enter token and you should now have a DSI-connected jupyter server.
