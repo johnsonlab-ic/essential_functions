@@ -150,3 +150,9 @@ Then, if you go into a browser, you can just go to <http://localhost:1234> or wh
 You can even do this within VScode!
 
 Open up a new notebook (for example, tutorial.ipynb), select kernel \> existing jupyter server \> enter "<http://localhost:1234> " \> enter token and you should now have a DSI-connected jupyter server.
+
+#### IGNORE
+
+``` shell
+docker run -it -v /home/ah3918/rds/:/app/ --name rds_container jupyter_tutorial:latest
+```
