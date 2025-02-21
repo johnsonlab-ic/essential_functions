@@ -48,7 +48,7 @@ generate_genotype_matrix=function(vcfs,
 
     message("Checking snps for build and converting to rsids..")
 
-    print(lobstr::mem_used())
+    # print(lobstr::mem_used())
     chrompos_mat=check_snps(chrompos_mat, chain_fpath)
     geno_mat=geno_mat[match(chrompos_mat$old_snp,geno_mat$snp),]
     geno_mat$snp=chrompos_mat$annot
